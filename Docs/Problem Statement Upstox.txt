@@ -1,0 +1,143 @@
+Problem Statement: Upstox FAQ Assistant — RAG-Based Financial Platform Support Chatbot
+1. Overview
+Build a small FAQ assistant for the Upstox trading and investment platform that answers factual questions about platform features, account management, brokerage charges, trading processes, funds and reports using only official public sources.
+
+Every answer must include at least one relevant source link.
+
+The assistant must provide factual information only and must not offer investment advice, stock recommendations or trading predictions.
+2. Who this helps
+- Retail investors and traders who need help understanding Upstox features.
+- New users learning how to use the platform.
+- Customer support teams answering repetitive platform-related questions.
+- Users looking for information about brokerage, charges, orders, funds and account reports.
+3. What you must build
+Data — Official public sources
+Collect and store information from 15–25 publicly accessible official sources, primarily from Upstox.
+
+Suggested topics:
+1. Upstox platform overview.
+2. Account opening and KYC.
+3. Brokerage charges.
+4. Account maintenance charges.
+5. Trading charges and taxes.
+6. Brokerage calculator.
+7. Adding funds.
+8. Withdrawing funds.
+9. Order types — Market, Limit, SL and SL-M.
+10. Order status and rejected orders.
+11. GTT orders.
+12. Margin requirements.
+13. Holdings and positions.
+14. Pledging and unpledging shares.
+15. IPO application status.
+16. Mutual fund investments and SIPs.
+17. Contract notes.
+18. Profit and loss reports.
+19. Ledger statements.
+20. Demat account statements.
+21. Account closure.
+Use only official Upstox, SEBI, NSE and BSE public sources. Do not use third-party blogs or private app data.
+FAQ assistant — Working prototype
+The assistant should answer factual questions such as:
+- What brokerage does Upstox charge for equity delivery?
+- How do I open an Upstox Demat account?
+- How can I add money to my account?
+- How do I withdraw funds?
+- What is the difference between Market and Limit orders?
+- What is a GTT order?
+- What are DP charges?
+- What is margin shortfall?
+- How can I download my contract note?
+- Where can I find my profit and loss report?
+- How do I check my IPO application status?
+- How can I start a mutual fund SIP through Upstox?
+Required behaviour:
+- Answers factual questions using retrieved official information.
+- Includes at least one source link in every answer.
+- Keeps answers within three sentences.
+- Displays Last updated from sources:.
+- Politely refuses investment advice, stock recommendations and trading predictions.
+- Clearly states when the required information is unavailable in the indexed sources.
+Example refusal
+"I can explain Upstox features, charges and trading processes, but I cannot recommend whether you should buy or sell a stock. Please consult a qualified financial advisor for personalised investment decisions."
+Tiny UI
+- Welcome message: "Welcome to Upstox FAQ Assistant."
+- Three example questions.
+- Chat input and answer display.
+- Source link below every answer.
+- Disclaimer: "Facts-only. No investment or trading advice."
+4. Key constraints
+Public sources only
+- Use official public information.
+- No third-party blogs.
+- No private or authenticated app data.
+No PII
+
+- Do not accept or store PAN, Aadhaar, OTPs, account numbers, email addresses, phone numbers or passwords.
+
+No financial advice
+- No buy/sell recommendations.
+- No stock predictions or trading signals.
+- No personalised portfolio recommendations.
+- No return calculations or performance comparisons.
+Clarity and transparency
+- Maximum three sentences per answer.
+- Every answer must contain a relevant citation.
+- Display the last-updated date.
+- Never generate unsupported facts.
+5. RAG implementation — Phase-wise development
+Build the project in separate, demonstrable phases:
+1. Data Loading: Scrape official Upstox pages and store raw content and metadata.
+2. Data Cleaning: Remove irrelevant content, duplicates and navigation elements.
+3. Data Chunking: Use a content-aware chunking strategy. The AI coding agent can decide the appropriate strategy based on the collected data.
+4. Data Embedding: Use sentence-transformers/all-MiniLM-L6-v2.
+5. Vector Database: Use ChromaDB to store embeddings, chunks and metadata.
+6. Data Retrieval: Use the same embedding model and ChromaDB collection used during ingestion. Retrieve relevant chunks using cosine similarity.
+7. LLM Generation: Generate factual answers using retrieved context and the configured LLM.
+8. Evaluation: Test retrieval accuracy, factual correctness, citation quality and refusal behaviour.
+6. Configurable technology stack
+All major components must be configurable rather than hardcoded.
+Component	Technology
+Programming language	Python
+UI	Streamlit
+Data scraping	Requests and BeautifulSoup
+Chunking	Configurable, content-aware strategy
+Embedding model	sentence-transformers/all-MiniLM-L6-v2
+Vector database	ChromaDB
+Similarity search	Cosine similarity
+LLM providers	Groq, Gemini, OpenAI, Anthropic, Mistral
+
+LLM configuration:
+- Default provider: Groq.
+- Default model: qwen/qwen3.8-27b (verify provider availability).
+- API keys and model names must be read from .env.
+- Support switching between Groq, Gemini, OpenAI, Anthropic and Mistral without changing application code.
+7. Explicit data storage and demonstration
+This is a demonstration of RAG, so every stage must produce a separately stored output that can be inspected.
+Stage	Expected output
+Data loading	Raw HTML/text and source metadata
+Data cleaning	Cleaned text files
+Chunking	Individual text chunks in JSONL
+Embedding	Stored embedding vectors and chunk IDs
+Vector storage	Persistent ChromaDB collection
+Retrieval	Retrieved chunks, similarity scores and metadata
+Generation	Final answer, source links and model information
+Evaluation	Test queries, expected answers and actual results
+
+8. What to submit
+1. Working prototype link or local demo.
+2. Source list (CSV or Markdown) containing 15–25 official URLs.
+3. README with setup instructions, scope and known limitations.
+4. Sample Q&A file containing 5–10 queries, answers and source links.
+5. Disclaimer snippet used in the UI.
+6. Stored intermediate outputs for every RAG phase.
+7. Configuration file demonstrating configurable embedding model, vector database and LLM provider.
+9. Skills being tested
+Skill	What it demonstrates
+W1 — Thinking Like a Model	Identifying factual questions, answering appropriately and refusing financial advice.
+W2 — LLMs & Prompting	Concise answers, grounding, citation wording and safe refusals.
+W3 — RAG	Data ingestion, cleaning, chunking, embedding, retrieval and generation.
+W4 — System Design	Modular architecture and configurable integrations.
+W5 — Evaluation	Retrieval relevance, factual accuracy and citation correctness.
+
+Project objective: Build a transparent, configurable, phase-wise RAG-based Upstox FAQ assistant that answers platform-related factual questions using official public information, with every processing stage explicitly stored and demonstrable.
