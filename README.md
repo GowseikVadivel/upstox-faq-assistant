@@ -1,1 +1,0 @@
-# upstox-faq-assistant
